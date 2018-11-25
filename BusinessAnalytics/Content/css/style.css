@@ -1,0 +1,251 @@
+/*================================================================================
+	Item Name: Robust - Responsive Admin Theme
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.text-center {
+    text-align: center;
+}
+.opgray {
+    color: rgba(0, 0, 0, 0.05);
+    font-size: 6rem !important;
+    font-weight: bold;
+}
+
+.list-group-item-action.teal:hover {
+    background-color: #009688 !important;
+    color:#fff !important;
+}
+.index .pagination-lg .page-link {
+    width: 33% !important;
+}
+
+.index .page-item:first-child .page-link, .index .page-item:last-child .page-link {
+    background: #c0c0c0;
+    border: none;
+}
+
+.index .page-link {
+    color: #fff !important;
+}
+
+.index .active .page-link {
+    background: #37bc9b;
+    border: none;
+}
+#hub {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    height: 28px;
+    padding-left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #fff;
+    display: none;
+}
+
+.chat-body {
+    height: 325px;
+    width: 265px;
+    background: #FF5722;
+    z-index: 9999999;
+    position: fixed;
+    bottom: 0;
+    right: 5px;
+    border-radius: 15px 15px 0 0;
+}
+
+.mg {
+    text-align: center;
+    color: #1d2b36;
+}
+
+.usr {
+    color: #ff5722;
+}
+
+#userList {
+    display: none;
+}
+
+#chat {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background: #f5f5f5;
+}
+
+    #chat #message-box .text-truncate {
+        padding: 3px;
+    }
+
+        #chat #message-box .text-truncate .username {
+            margin-bottom: 5px;
+        }
+
+#view-msga {
+    margin-bottom: 90px !important;
+}
+
+#back {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    font-weight: 600;
+    color: #fff;
+}
+
+#exit {
+    position: absolute;
+    right: 15px;
+    top: 7px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+}
+
+#chat .card-body:first-child {
+    height: 255px;
+}
+
+#chat .table-responsive:first-child {
+    overflow-x: hidden;
+}
+
+#chat .text-truncate span {
+    white-space: normal;
+    direction: ltr;
+}
+
+#chat textarea {
+    position: absolute;
+    bottom: 7px;
+    width: 95%;
+    left: 0;
+    margin: 0 0px 0 7px;
+}
+
+.hideBack {
+    display: none;
+}
+
+.showBack {
+    display: block;
+}
+
+#chat .table:first-child .text-truncate {
+    padding-left: 10px;
+    text-align: left;
+}
+
+#openChat {
+    position: fixed;
+    right: 10px;
+    bottom: 5px;
+    background: #ff5722;
+    color: #fff;
+    padding: 10px;
+    border-radius: 20px 5px;
+    cursor: context-menu;
+    z-index: 99999;
+}
+
+.username {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #ff5722;
+    text-align: center
+}
+
+.claimBlock {
+    border-bottom: 5px solid #c0c0c0;
+    margin-bottom: 20px;
+}
+
+.claim-date {
+    float: right;
+}
+
+.link-claim {
+    display: -webkit-inline-box;
+    text-transform: initial !important;
+}
+
+.text-box {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.18rem;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border: 1px solid #d4d4d4;
+    color: #5a5a5a;
+}
+
+#view-msga td {
+    border: none;
+}
+
+.right-mes, .left-mes {
+    padding: 5px;
+}
+
+.date {
+    font-size: 10px;
+    background: none !important;
+    color: #7d7d7d !important;
+}
+
+.right-mes {
+    display: block;
+    width: 200px;
+    text-align: right;
+    float: right;
+    background: #ff5722;
+    color: #fff;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+.left-mes {
+    display: block;
+    width: 200px;
+    text-align: left;
+    float: left;
+    background: #009688;
+    border-radius: 10px;
+    color: #fff;
+}
+
+#usrdlg {
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#txtMessage1 {
+    resize: none;
+}
+
+body.vertical-layout.vertical-menu.menu-collapsed .main-menu .navigation > li > a{
+    text-align:left;
+}
+
+.form-group .col-md-6 {
+
+}

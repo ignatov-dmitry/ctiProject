@@ -1,0 +1,85 @@
+﻿@using BusinessAnalytics.Models
+@using db
+@using Logics
+@model ChatMessage
+
+@{ 
+
+    TaskObj obj = new TaskObj();
+}
+<div class="col-lg-4 col-md-12" id="users">
+    <div class="card">
+        @{
+            if (User.IsInRole("Client")) { }
+            else { }
+        }
+        <div class="card-header">
+            <h4 class="card-title">Пользователей онлайн: @ViewBag.online.Count</h4>
+        </div>
+        <div class="card-body collapse in">
+            <div class="card-block">
+                @{
+                    if (User.IsInRole("Client")) { }
+                    else
+                    {
+                        <h5 class="success">Менежера и администраторы</h5>
+                        <ul class="list-group">
+                            @foreach (var c in MiniChat.Users())
+                            {
+
+
+                                <li class="list-group-item">
+                                    <a href="/chat/PrivateChat/@c.User?enter=true&logOn=true">@obj.ViewUserName(Guid.Parse(c.User.ToString())).UserName</a>
+                                    @{
+                                        if (c.Count != 0)
+                                        {
+                                            <span class="tag tag tag-primary tag-pill float-xs-right mr-2">@c.Count</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="tag tag tag-primary tag-pill float-xs-right mr-2"></span>
+                                        }
+
+                                    }
+                                </li>
+                                        }
+                        </ul>
+                                        }
+                }
+                
+                @{ 
+                    if (User.IsInRole("Client"))
+                    {
+                        Html.RenderPartial("PrivateChatHistoryClient");
+                    }
+                    else
+                    {
+                        Html.RenderPartial("PrivateChatHistoryManager");
+                    }
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-8 col-md-12" id="Messages">
+    @foreach (var msg in ViewBag.query)
+    {
+        <p>
+            @obj.ViewUserName(msg.UserSetId).UserName
+            @msg.Date
+            <br />
+            @if (msg.UserSet != null)
+                {
+                <b>@(msg.User.Name + ":")</b> @msg.Text
+            }
+            else
+            {
+                <span class="serverMes">@msg.Text</span>}
+        </p>
+    }
+</div>
+
+
+
+

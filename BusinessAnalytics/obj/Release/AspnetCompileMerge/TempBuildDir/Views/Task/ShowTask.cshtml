@@ -1,0 +1,46 @@
+﻿@model db.TasksManager
+@using Logics
+@{
+    ViewBag.Title = "Задание";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    TaskObj obj = new TaskObj();
+var start = Model.DateStart.Year + "-" + Model.DateStart.Month + "-" + Model.DateStart.Day;
+var end = Model.DateEnd.Year + "-" + Model.DateEnd.Month + "-" + Model.DateEnd.Day;
+}
+<div class="row">
+    <div class="card-block">
+        <form action="@Url.Content("~/Task/ShowTask")" method="post" class="form">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input name="BookId" type="hidden" value="@Model.Id" />
+        <div class="form-group">
+            <select name="UserId" class="form-control" readonly>
+                @foreach (var item in ViewBag.UserList)
+                {
+                <option value="@item.Id">@item.UserName</option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control border-primary", @placeholder = "Название", @required = "required",@readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <label for="Status">Статус:</label>
+            <input id="Status" type="checkbox" name="check" />
+        </div>
+        <div class="form-group">
+            @Html.TextAreaFor(m=>m.Text,new { @class= "form-control border-primary", @placeholder = "Описание",@readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <input class="form-control border-primary" name="DateStart" type="date" placeholder="Дата начала задачи" value="@start"  readonly/>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control border-primary" name="DateEnd" type="date" placeholder="Дата окончание задачи" value="@end" readonly/>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+        </div>
+        </form>
+    </div>
+</div>

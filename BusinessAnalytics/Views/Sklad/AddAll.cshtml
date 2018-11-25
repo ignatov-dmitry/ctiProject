@@ -1,0 +1,270 @@
+﻿
+@{
+    ViewBag.Title = "Добавить";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Сырье</h4>
+            </div>
+            <div class="card-body">
+                @using (Ajax.BeginForm("Add", "Sklad", new AjaxOptions { OnSuccess = "okSyre", OnFailure = "errorAddCondiments" }, new { @class = "form" }))
+                {
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    @Html.Label("Name", "Наименование")
+                                    @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                                </div>
+
+
+                                <input type="hidden" name="Count" value="0" />
+                                <input type="hidden" name="VesId" value="1" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-check2"></i> Сохранить
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Специи</h4>
+            </div>
+            <div class="card-body">
+
+                @using (Ajax.BeginForm("AddCondiments", "Sklad", new AjaxOptions { UpdateTargetId = "AddCondiments", OnComplete = "okSkladAddCondiments", OnSuccess = "okAddCondiments", OnFailure = "errorAddCondiments" }, new { @class = "form" }))
+                {
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    @Html.Label("Name", "Наименование")
+                                    @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                                </div>
+                                <input type="hidden" name="Count" value="0" />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-check2"></i> Сохранить
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Упаковка</h4>
+            </div>
+            <div class="card-body">
+                @using (Ajax.BeginForm("AddPack", "Sklad", new AjaxOptions { UpdateTargetId = "AddPack", OnComplete = "okSkladPack", OnSuccess = "okPack", OnFailure = "errorPack" }, new { @class = "form" }))
+                {
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    @Html.Label("Name", "Наименование")
+                                    @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Amount", "Объём")
+                                    @Html.TextBox("Amount", "", new { @class = "form-control", @placeholder = "Объём", @required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="Count" value="0" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-check2"></i> Сохранить
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Готовая продукция</h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("AddFinishedProduct", "Sklad", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="row">
+                        <div class="col-md-9 offset-md-2">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    @Html.Label("Name", "Наименование")
+                                    @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="Image">Фото</label>
+                                    <div class="editor-field">
+                                        <input type="file" name="uploadImage" id="uploadImage" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 SyrClass">
+
+                                    <p>Сырье</p>
+                                    <div class="col-md-7">
+
+                                        @Html.DropDownList("FinishGildArray[0].GildId", ViewBag.gildSyr as SelectList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" placeholder="Количество" name="FinishGildArray[0].CountSyr" min="1" step="any" />
+                                    </div>
+
+                                    <hr class="line" />
+
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <a href="#" class="btn btn-success addSyr">Добавить поле Сырья</a>
+                                </div>
+                                <div class="form-group col-xs-12 SpecClass">
+                                    <p>Специи</p>
+                                    <div class="col-md-7">
+
+                                        @Html.DropDownList("FinishGildArray[1].GildId", ViewBag.gildSpec as SelectList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" placeholder="Количество" name="FinishGildArray[1].CountSpec" min="1" step="any" />
+                                    </div>
+
+                                    <hr class="line" />
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <a href="#" class="btn btn-success addSpec">Добавить поле Специи</a>
+                                </div>
+                                <div class="form-group">
+                                    <p>Упаковка</p>
+                                    <div class="col-md-12">
+
+                                        @Html.DropDownList("PackagingId", ViewBag.Pack as SelectList, new { @class = "form-control" })
+                                    </div>
+                                    <input type="hidden" name="PriceIn" value="0" />
+                                    <input type="hidden" name="PriceOut" value="0" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-check2"></i> Сохранить
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="heading1" class="card-header">
+            <a data-toggle="collapse" data-parent="#accordionWrapa1" href="#accordion1" aria-expanded="true" aria-controls="accordion1" class="card-title lead collapsed">Готовая продукция</a>
+        </div>
+        <div id="accordion1" role="tabpanel" aria-labelledby="heading1" class="card-collapse collapse" aria-expanded="false" style="">
+            <div class="card-body">
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Наименование</th>
+                                    <th>Кол-во(кг)</th>
+                                    <th class="center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="AddFinish"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-xs-left" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+    </div>
+</div>
+<div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+</div>
+
+
+<a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+<div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <label class="modal-title text-text-bold-600" id="myModalLabel33">Успешно добавлено</label>
+            </div>
+            <div class="modal-body">
+                <h4 class="success" style="display:none;"></h4>
+                <h2 class="error" style="display:none;">Ошибка при добавлении</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#FinishGildArray_0__GildId').append('<option value="" disabled style="display:none;" selected>Наименование</option>');
+    $('#FinishGildArray_1__GildId').append('<option value="" disabled style="display:none;" selected>Наименование</option>');
+    $('#PackagingId').append('<option value="" disabled style="display:none;" selected>Наименование</option>');
+    $(function () {
+        var i = 2;
+        $('.addSyr').on('click', function (e) {
+            e.preventDefault();
+            $('.SyrClass').append(`
+<div class="col-xs-12 form-group" style="margin-top:20px;">
+    <div class="col-md-7">
+
+                                        @Html.DropDownList("FinishGildArray[`+i+`].GildId", ViewBag.gildSyr as SelectList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" placeholder="Количество" name="FinishGildArray[`+i+`].CountSyr" min="1" step="any" />
+                                    </div>
+
+                                    <hr class="line" /></div>`);
+            i++;
+        });
+        $('.addSpec').on('click', function (e) {
+            e.preventDefault();
+            $('.SpecClass').append(`
+<div class="col-xs-12 form-group" style="margin-top:20px;">
+   <div class="col-md-7">
+
+                                        @Html.DropDownList("FinishGildArray[`+i+`].GildId", ViewBag.gildSpec as SelectList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" placeholder="Количество" name="FinishGildArray[`+i+`].CountSpec" min="1" step="any" />
+                                    </div>
+                                    
+                                    <hr class="line" /></div>`);
+            i++;
+        });
+
+    })
+</script>
+<script src="@Url.Content("~/Content/js/Syre.js")"></script>
+<script src="@Url.Content("~/Content/js/Condiments.js")"></script>
+<script src="@Url.Content("~/Content/js/Pack.js")"></script>

@@ -1,0 +1,38 @@
+﻿@{ 
+    Layout = null;
+}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <label class="modal-title text-text-bold-600" id="myModalLabel33">Добавления Упаковки</label>
+        </div>
+
+
+
+        @using (Ajax.BeginForm("AddPack", "Sklad", new AjaxOptions { UpdateTargetId = "AddPack", OnComplete = "okSkladPack", OnSuccess = "okPack", OnFailure = "errorPack" }, new { @class = "form" }))
+        {
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="form-body">
+                        <div class="form-group">
+                            @Html.Label("Name", "Наименование")
+                            @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="Count" value="0" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="icon-check2"></i> Сохранить
+                </button>
+            </div>
+        }
+    </div>
+</div>

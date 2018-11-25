@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Упаковка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .fs {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12">
+        
+        <a href="@Url.Content("~/Sklad/PrihInSklad")" class="addPack btn btn-primary" data-toggle="modal" data-target="#inlineForm">Приход на склад</a>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Наличие на складе</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reloadPack"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+
+                                    <th>Наименование</th>
+                                    <th>Количество(шт.)</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="AddPack"></tbody>
+                        </table>
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+                        </div>
+
+
+                        <a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+                        <div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <label class="modal-title text-text-bold-600" id="myModalLabel33">Успешно добавлено на Приход в Цех</label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="success" style="display:none;"></h4>
+                                        <h2 class="error" style="display:none;">Ошибка при добавлении</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Заявки на заказ товара";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<db.Claim>
+@using Logics
+<div class="row match-height">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="basic-layout-form-center">Заказать товар</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block">
+
+                    @using (Html.BeginForm("NewClaim", "Claim", FormMethod.Post, new { @class = "form" }))
+                    {
+                        <div class="row">
+                            <div class="col-md-9 offset-md-2">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        @Html.Label("ProductId", "Название товара")
+                                        @Html.DropDownList("ProductId", ViewBag.IdTovar as SelectList, new { @class = "form-control" })
+                                    </div>
+
+                                    
+
+
+                                    <div class="form-group">
+                                        <label for="Count">Количество</label>
+                                        @Html.TextBox("Quantity", "", new { @class = "form-control", @placeholder = "Количество", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="icon-check2"></i> Отправить заявку
+                            </button>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Список товаров</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                    <th class="text-center">Изменить и создать новый</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var i in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => i.Id)</th>
+                                        <td>@Html.DisplayFor(modelItem => ProductView.Views(i.IdProducts).Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => i.Quantity)</td>
+                                        <td>@Html.DisplayFor(modelItem => i.Date)</td>
+                                        @if (i.Sign)
+                                        {
+                                            <td class="success">Подписан</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="danger">Не подписан</td>
+                                        }
+                                        <td class="text-center">@Html.ActionLink("Изменить", "Edit", new { id = i.Id }, new { @class = "edt", data_toggle = "modal", data_target = "#inlineForm" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var arr = [];
+    $("#name")
+        .keyup(function () {
+            $.getJSON(location.href + "/AutocompleteSearch", function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    arr.push(data[i].Price);
+                }
+            console.log(arr);
+            });
+     }).keyup();
+</script>

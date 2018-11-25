@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Мониторинг цен";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <h2 style="text-align:center">Наша компания</h2>
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Розничные цены</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive text-center">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Наименование</th>
+                                <th class="text-center">Ед./Изм.</th>
+                                <th class="text-center">Цена на рынке</th>
+                                <th class="text-center">Отпускная цена</th>
+                                <th class="text-center">Количество на складе</th>
+                                <th class="text-center">Дата обновления</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-truncate">Картофель</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> кг.</span>
+                                </td>
+                                <td class="text-truncate tag tag-warning">0,3&nbsp;&nbsp; - &nbsp;&nbsp;0,4</td>
+                                <td class="text-truncate">0,4</td>
+                                <td class="text-truncate">45 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Морковь</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> кг.</span>
+                                </td>
+                                <td class="text-truncate tag tag-danger">0,7&nbsp; - &nbsp;0,75</td>
+                                <td class="text-truncate">0,8</td>
+                                <td class="text-truncate">68 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Лук</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> кг.</span>
+                                </td>
+                                <td class="text-truncate tag tag-warning">0,3&nbsp; - &nbsp;0,32</td>
+                                <td class="text-truncate">0,31</td>
+                                <td class="text-truncate">2 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Капуста</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> кг.</span>
+                                </td>
+                                <td class="text-truncate tag tag-success ">0,45 - 0,48</td>
+                                <td class="text-truncate">0,4</td>
+                                <td class="text-truncate">нет</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Оптовые цены</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body text-center">
+
+                <div class="table-responsive text-center">
+                    <table class="table table-hover mb-0">
+                        <thead class="text-center">
+                            <tr class="text-center">
+                                <th class="text-center">Наименование</th>
+                                <th class="text-center">Ед./Изм.</th>
+                                <th class="text-center">Цена на рынке</th>
+                                <th class="text-center">Отпускная цена</th>
+                                <th class="text-center">Количество на складе</th>
+                                <th class="text-center">Дата обновления</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-truncate">Картофель</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> т.</span>
+                                </td>
+                                <td class="text-truncate tag tag-warning">300 - 400</td>
+                                <td class="text-truncate ">400</td>
+                                <td class="text-truncate">45 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Морковь</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> т.</span>
+                                </td>
+                                <td class="text-truncate tag tag-danger">700 - 750</td>
+                                <td class="text-truncate ">800</td>
+                                <td class="text-truncate">68 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Лук</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> т.</span>
+                                </td>
+                                <td class="text-truncate tag tag-warning">300 - 320</td>
+                                <td class="text-truncate ">310</td>
+                                <td class="text-truncate">2 т</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                            <tr>
+                                <td class="text-truncate">Капуста</td>
+                                <td class="text-truncate">
+                                    <span class="avatar avatar-xs"> т.</span>
+                                </td>
+                                <td class="text-truncate tag tag-success">450 - 480</td>
+                                <td class="text-truncate">400</td>
+                                <td class="text-truncate">нет</td>
+                                <td class="text-truncate">25.05</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

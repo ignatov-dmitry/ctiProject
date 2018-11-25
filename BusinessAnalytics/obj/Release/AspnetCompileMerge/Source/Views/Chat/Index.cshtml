@@ -1,0 +1,26 @@
+﻿@model db.ChatModel
+@section js{
+@Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+@Scripts.Render("~/Scripts/chat.js")
+}
+
+    <div id="Username">
+    </div>
+    <div id="container">
+        <div id="RefreshArea" class="row match-height">
+            @{
+                Html.RenderPartial("History", Model);
+            }
+        </div>
+
+        @Ajax.ActionLink("ActionLink", "Index", new { user = "", logOn = "", logOff = "", chatMessage = "" },
+new AjaxOptions { UpdateTargetId = "RefreshArea", OnSuccess = "ChatOnSuccess", OnFailure = "ChatOnFailure" },
+new { @id = "ActionLink", @style = "visibility:hidden;" })
+    </div>
+    <div id="Error">
+    </div>
+    @Ajax.ActionLink("Login", "Index", new { user = "" },
+new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
+new { @id = "LoginButton", @style = "visibility:hidden;" })
+

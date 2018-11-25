@@ -1,0 +1,54 @@
+﻿@model IEnumerable<db.UserModel>
+
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Пользователи</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "AddUser")
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                Имя пользователя
+            </th>
+            <th>
+                Роль
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Content("~/Home/ViewUser/"+item.AspNetUserId)" class="show" data-toggle="modal" data-target="#ss" title="Просмотр информации">  @Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    <a href="@Url.Content("~/Account/Edit/" + item.AspNetUserId)">Изменить</a> |
+                    <a href="@Url.Content("~/Account/Remove/"+item.AspNetUserId)">Удалить</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="modal fade text-sm-center" id="ss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+    </div>
+</div>
+<script>
+        $.ajaxSetup({ cache: false });
+        $(".show").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#ss').html(data);
+            });
+        });
+</script>

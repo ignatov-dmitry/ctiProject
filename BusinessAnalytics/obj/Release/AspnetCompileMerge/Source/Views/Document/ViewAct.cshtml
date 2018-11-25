@@ -1,0 +1,32 @@
+﻿@using db;
+@model IEnumerable<Document>
+@{
+    ViewBag.Title = "Акты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a class="btn btn-secondary btn-min-width mr-1 mb-1">Добавить документ</a>
+<div class="table-responsive">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Название документа</th>
+                <th class="text-center">Редактирования</th>
+                <th class="text-center">Удаления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td class="text-center">@Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edt icon-pen3", data_toggle = "modal", data_target = "#inlineForm" })</td>
+                    <td class="text-center">@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "del icon-trash3", data_toggle = "modal", data_target = "#inlineForm" })</td>
+                </tr>
+            }
+            
+            
+        </tbody>
+    </table>
+</div>

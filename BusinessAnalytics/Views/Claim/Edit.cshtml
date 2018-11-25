@@ -1,0 +1,41 @@
+﻿@model db.Claim
+@{
+    Layout = null;
+}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <label class="modal-title text-text-bold-600" id="myModalLabel33">Заявка</label>
+        </div>
+
+
+
+        @using (Html.BeginForm("NewClaim", "Claim", FormMethod.Post, new { @class = "form" }))
+        {
+            <div class="row">
+                <div class="offset-md-2 col-md-9">
+                    <div class="form-body">
+                        @Html.HiddenFor(m => m.Id)
+                        <div class="form-group">
+                            @Html.Label("ProductId", "Название товара")
+                            @Html.DropDownList("ProductId", ViewBag.IdTovar as SelectList, new { @class = "form-control", @required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Count">Количество</label>
+                            @Html.TextBox("Quantity", "", new { @class = "form-control", @placeholder = "Количество", @required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Отмена</button>
+                <button type="submit" class="btn btn-outline-primary">Отправить заявку как новую</button>
+            </div>
+        }
+    </div>
+</div>
+

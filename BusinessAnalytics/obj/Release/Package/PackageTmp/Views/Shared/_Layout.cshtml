@@ -1,0 +1,442 @@
+﻿@using System.Text
+@using Logics
+@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>@ViewBag.Title</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="@Url.Content("~/Content/assets/images/ico/apple-icon-60.png")">
+    <link rel="apple-touch-icon" sizes="76x76" href="@Url.Content("~/Content/assets/images/ico/apple-icon-76.png")">
+    <link rel="apple-touch-icon" sizes="120x120" href="@Url.Content("~/Content/assets/images/ico/apple-icon-120.png")">
+    <link rel="apple-touch-icon" sizes="152x152" href="@Url.Content("~/Content/assets/images/ico/apple-icon-152.png")">
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/assets/images/ico/favicon.ico")">
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/Content/assets/images/ico/favicon-32.png")">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#1C941C">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1C941C">
+    <meta name="msapplication-navbutton-color" content="#1C941C">
+    <meta name="msapplication-TileColor" content="#1C941C">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/bootstrap.css")">
+    <!-- font icons-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/fonts/icomoon.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/fonts/flag-icon-css/css/flag-icon.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/vendors/css/extensions/pace.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/vendors/css/ui/prism.min.css")">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN ROBUST CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/bootstrap-extended.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/app.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/colors.css")">
+    <!-- END ROBUST CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/core/menu/menu-types/vertical-menu.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/core/menu/menu-types/vertical-overlay-menu.css")">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/style.css")">
+    <!-- END Custom CSS-->
+    <script src="@Url.Content("~/Content/assets/js/core/libraries/jquery.min.js")"></script>
+
+
+    <base href="/">
+</head>
+<body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar menu-expanded  pace-done">
+
+    <!-- navbar-fixed-top-->
+
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <!-- navbar-fixed-top-->
+        <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-dark navbar-shadow">
+            <div class="navbar-wrapper">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item mobile-menu hidden-md-up float-xs-left"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="icon-menu5 font-large-1"></i></a></li>
+                        <li class="nav-item"><a href="@Url.Content("~/")" class="navbar-brand nav-link text-center">АСУ ПК "Кремко"</a></li>
+                        <li class="nav-item hidden-md-up float-xs-right"><a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container"><i class="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i></a></li>
+                    </ul>
+                </div>
+                <div class="navbar-container content container-fluid">
+                    <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item hidden-sm-down" style="margin-left: 25px;"><a class="nav-link nav-menu-main menu-toggle hidden-xs is-active"><i class="icon-menu5"></i></a></li>
+
+                            <li class="nav-item hidden-sm-down"><a href="http://kremko.by" target="_blank" class="btn btn-primary upgrade-to-pro" style="background: #ff5722;border-color: #ff5722;">Наш сайт</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav float-xs-right">
+
+                            <li class="dropdown dropdown-notification nav-item">
+                                <a href="#" data-toggle="dropdown" class="nav-link nav-link-label"><i class="ficon icon-bell4"></i><span id="countNot" class="tag tag-pill tag-default tag-danger tag-default tag-up"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right" id="sas">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0"><span class="grey darken-2">Уведомления</span><span id="countNotNew" class="notification-tag tag tag-default tag-danger float-xs-right m-0"> Новых</span></h6>
+                                    </li>
+
+
+                                    <li class="dropdown-menu-footer"><a href="@Url.Content("~/Notification")" class="dropdown-item text-muted text-xs-center">Все уведомления</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-notification nav-item">
+                                <a href="#" data-toggle="dropdown" class="nav-link nav-link-label"><i class="ficon icon-mail6"></i><span class="tag tag-pill tag-default tag-info tag-default tag-up">0</span></a>
+                                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0"><span class="grey darken-2">Почта</span><span class="notification-tag tag tag-default tag-info float-xs-right m-0">0 New</span></h6>
+                                    </li>
+                                    <li class="list-group scrollable-container">
+                                        <a href="javascript:void(0)" class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="@Url.Content("~/Content/assets/images/portrait/small/avatar-s-1.png")" alt="avatar"><i></i></span></div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Margaret Govan</h6>
+                                                    <p class="notification-text font-small-3 text-muted">I like your portfolio, let's start the project.</p><small>
+                                                        <time datetime="2015-06-11T18:29:20+08:00" class="media-meta text-muted">Today</time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-menu-footer"><a href="javascript:void(0)" class="dropdown-item text-muted text-xs-center">Вся почта</a></li>
+                                </ul>
+                            </li>
+
+                            @Html.AntiForgeryToken()
+                            <li class="dropdown dropdown-user nav-item">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link">
+                                    <span class="avatar avatar-online">
+                                        @try
+                                        {
+                                            if (NotificationObj.ViewImg(User.Identity.Name) != null)
+                                            {
+                                                @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(NotificationObj.ViewImg(User.Identity.Name)) + "\" />")<i></i>
+                                            }
+                                            else
+                                            {
+                                                <img src="@Url.Content("~/Content/assets/images/portrait/small/avatar-s-1.png")" alt="avatar">
+                                            }
+
+                                        }
+                                        catch
+                                        {
+                                            <img src="@Url.Content("~/Content/assets/images/portrait/small/avatar-s-1.png")" alt="avatar">
+                                        }
+                                        <i></i>
+                                    </span><span class="user-name">@OtherLogic.ViewName(User.Identity.GetUserId())</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="#" class="dropdown-item"><i class="icon-head"></i> Профиль</a><a href="#" class="dropdown-item"><i class="icon-mail6"></i> Почта</a>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a href="@Url.Content("~/Task")" class="dropdown-item"><i class="icon-clipboard2"></i> Задачи</a>
+                                    }
+                                    <a href="@Url.Content("~/Task/Calendar")" class="dropdown-item"><i class="icon-calendar5"></i> Календарь</a>
+                                    <div class="dropdown-divider"></div><a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item"><i class="icon-power3"></i> Выход</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    }
+    @{
+        int a = 1;
+        int b = 2;
+    }
+    <!-- BEGIN Navigation-->
+    <div data-scroll-to-active="true" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+        <div class="main-menu-content">
+            <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                <li class="nav-item active">
+                    <a href="@Url.Content("~/")"><i class="icon-home3"></i><span data-i18n="nav.dash.main" class="menu-title">Главная</span></a>
+                </li>
+                @if (User.IsInRole("Auto"))
+                {
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/AutoPark/AutoList")"><i class="icon-eye6"></i><span data-i18n="nav.icons.main" class="menu-title">Авто</span></a>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/AutoPark/DriverList")"><i class="icon-eye6"></i><span data-i18n="nav.icons.main" class="menu-title">Водитель</span></a>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/AutoPark/StatusAuto")"><i class="icon-eye6"></i><span data-i18n="nav.icons.main" class="menu-title">Состояние</span></a>
+                    </li>
+                }
+                @if (User.IsInRole("admin"))
+                {
+                    <li class=" nav-item">
+                        <a href="#"><i class="icon-eye6"></i><span data-i18n="nav.icons.main" class="menu-title">Администратор</span></a>
+                        <ul class="menu-content">
+                            <li>
+                                <a href="@Url.Content("~/Home/Users")" data-i18n="nav.icons.icons_feather" class="menu-item">Пользователи</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Events")" data-i18n="nav.icons.icons_feather" class="menu-item">Добавить событие</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("Buh"))
+                {
+                    <li class="nav-item">
+                        <a href="#"><i class="icon-tag3"></i><span data-i18n="nav.dash.main" class="menu-title">Готовая продукция</span></a>
+                        <ul class="menu-content">
+                            <li>
+                                <a href="@Url.Content("~/Bookkeeping")" data-i18n="nav.icons.icons_feather" class="menu-item">Внутренняя цена</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Bookkeeping/IndexOut")" data-i18n="nav.icons.icons_feather" class="menu-item">Внешняя цена</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("manager"))
+                {
+
+                    <li class=" nav-item">
+                        <a href="#"><i class="icon-clipboard4"></i><span data-i18n="nav.dash.main" class="menu-title">Сырье</span></a>
+                        <ul class="menu-content">
+                            <li>
+                                <a href="@Url.Content("~/Sklad/InSklad")" data-i18n="nav.icons.icons_feather" class="menu-item">Приход на склад</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Sklad")" data-i18n="nav.icons.icons_feather" class="menu-item">Наличие на складе</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Sklad/Condiments")"><i class="icon-aperture"></i><span data-i18n="nav.dash.main" class="menu-title">Специи</span></a>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a href="@Url.Content("~/Sklad/GildView")" data-i18n="nav.icons.icons_feather" class="menu-item"><i class="icon-android-restaurant"></i>Приход в цех</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Content("~/Sklad/PackagingView")" class="menu-item"><i class="icon-ios-filing"></i>Упаковка</a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="#"><i class="icon-tag3"></i><span data-i18n="nav.dash.main" class="menu-title">Готовая продукция</span></a>
+                        <ul class="menu-content">
+                            <li>
+                                <a href="@Url.Content("~/Sklad/FinishedProduct")" data-i18n="nav.icons.icons_feather" class="menu-item">Приход на склад</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Sklad/ViewProduct")" data-i18n="nav.icons.icons_feather" class="menu-item">Наличие на складе</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="#"><i class="icon-head"></i><span data-i18n="nav.dash.main" class="menu-title">Заявки</span></a>
+                        <ul class="menu-content">
+                            @if (User.IsInRole("manager"))
+                            {
+                                <li>
+                                    <a href="#" data-i18n="nav.icons.icons_feather" class="menu-item">Новые заявки</a>
+                                    <ul class="menu-content">
+
+                                        <li class=" nav-item">
+                                            <a href="@Url.Content("~/Claim/InUser")" data-i18n="nav.icons.icons_feather" class="menu-item">Внутренние клиенты</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Content("~/Claim/OutUser")" data-i18n="nav.icons.icons_feather" class="menu-item">Внешние клиенты</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/Shipment")" data-i18n="nav.icons.icons_feather" class="menu-item">Отгрузка</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/Shipment/ArchiveShipment")" data-i18n="nav.icons.icons_feather" class="menu-item">Архив отгрузок</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("admin"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Sales/Chart")" data-i18n="nav.icons.icons_feather" class="menu-item">Диаграммы</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                }
+                @if (User.IsInRole("manager") || User.IsInRole("admin") || User.IsInRole("Buh"))
+                {
+                    <li class=" nav-item">
+
+                        <a href="@Url.Content("~/Production/Prices")"><i class="icon-bell4"></i><span data-i18n="nav.dash.main" class="menu-title">Мониторинг цен</span></a>
+                    </li>
+                    @*<li>
+                            <a href="@Url.Content("~/ClaimServices/ClaimUser")" data-i18n="nav.icons.icons_feather" class="menu-item">Услуги</a>
+                        </li>*@
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Home/UsersClient")"><i class="icon-eye6"></i><span data-i18n="nav.icons.main" class="menu-title">Клиенты</span></a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a href="@Url.Content("~/Production/Show/"+  a)"><i class="icon-bubble"></i><span data-i18n="nav.dash.main" class="menu-title">Online совещание</span></a>
+                    </li>
+
+
+                }
+                @if (User.IsInRole("Client"))
+                {
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Claim")"><i class="icon-shopping-cart"></i><span data-i18n="nav.dash.main" class="menu-title">Заявки</span></a>
+
+                    </li>
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Claim/ActView")"><i class="icon-shopping-cart"></i><span data-i18n="nav.dash.main" class="menu-title">Акты</span></a>
+                    </li>
+                }
+                @if (User.IsInRole("sklad") || User.IsInRole("admin"))
+                {
+
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Production")"><i class="icon-shopping-cart"></i><span data-i18n="nav.dash.main" class="menu-title">Производство</span></a>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="#"><i class="icon-inbox"></i><span data-i18n="nav.dash.main" class="menu-title">Склад</span></a>
+                        <ul class="menu-content">
+                            @if (User.IsInRole("sklad"))
+                            {
+                                <li class=" nav-item">
+                                    <a href="@Url.Content("~/Claim/SkladClaim")"><i class="icon-shopping-cart"></i><span data-i18n="nav.dash.main" class="menu-title">Заявки</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/Sklad")" data-i18n="nav.icons.icons_feather" class="menu-item">Работа на складе</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/Sklad/Chart")" data-i18n="nav.icons.icons_feather" class="menu-item">Диаграммы</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("admin"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Sklad/Chart")" data-i18n="nav.icons.icons_feather" class="menu-item">Диаграммы</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("manager"))
+                {
+                    <li class=" nav-item">
+                        <a href="@Url.Content("~/Sklad/AddAll")"><i class="icon-plus4"></i><span data-i18n="nav.dash.main" class="menu-title">Добавить</span></a>
+                    </li>
+                }
+                @*<li class=" nav-item">
+                        <a href="#"><i class="icon-paper"></i><span data-i18n="nav.dash.main" class="menu-title">Документы</span></a>
+                        <ul class="menu-content">
+                            <li>
+                                <a href="@Url.Content("~/Document/ViewСlaim")" data-i18n="nav.icons.icons_feather" class="menu-item">Заявки</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Document/ViewAct")" data-i18n="nav.icons.icons_feather" class="menu-item">Акты</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/Document/ViewInvoice")" data-i18n="nav.icons.icons_feather" class="menu-item">Накладные</a>
+                            </li>
+                        </ul>
+                    </li>*@
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- END Navigation-->
+    <!-- BEGIN Content-->
+    <div class="app-content content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-xs-12 mb-1">
+                    <h2 class="content-header-title">@ViewBag.Title</h2>
+                </div>
+                <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-xs-12">
+                    <div class="breadcrumb-wrapper col-xs-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Content("~")">Главная</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">@ViewBag.Title</a>
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+
+                <section id="css-classes" class="card">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <div class="card-text">
+
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="hub">
+
+    </div>
+
+    <div class="chat-body" style="display:none;">
+        <a href="#" id="back" class="hideBack" title="Назад"><i class="icon-chevron-left2"></i></a>
+        <div id="usrdlg"></div>
+        <p id="exit"><i class="icon-close2"></i></p>
+        <div id="chat">
+            @{
+                Html.RenderAction("MiniChat", "Chat");
+            }
+        </div>
+    </div>
+    @Ajax.ActionLink("Login1", "MiniChat", new { user = "" },
+                                                             new AjaxOptions { UpdateTargetId = "container1", OnFailure = "LoginOnFailure1", OnSuccess = "LoginOnSuccess1", OnComplete = "cursor" },
+                                                             new { @id = "LoginButton1", @style = "visibility:hidden;" })
+    @Ajax.ActionLink("ActionLink1", "MiniChat", new { user = "", logOn = "", logOff = "", chatMessage = "" },
+                                                             new AjaxOptions { UpdateTargetId = "chat", OnSuccess = "ChatOnSuccess1", OnFailure = "ChatOnFailure1", OnComplete = "asdd" },
+                                                             new { @id = "ActionLink1", @style = "visibility:hidden;" })
+    <div id="openChat">Открыть чат</div>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/tether.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/core/libraries/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/perfect-scrollbar.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/unison.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/blockUI.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/jquery.matchHeight-min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/screenfull.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/extensions/pace.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/assets/js/core/app-menu.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/core/app.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/vendors/js/ui/prism.min.js")"></script>
+    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+    <script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.signalR-2.2.2.js")"></script>
+    <script src="@Url.Content("~/signalr/hubs")"></script>
+    <script src="@Url.Content("~/Scripts/util.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/MiniChat.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/scripts/tooltip/tooltip.js")"></script>
+    @RenderSection("js", false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.21.0/system.js"></script>
+    <script src="@Url.Content("~/Content/js/settingSystem.js")"></script>
+</body>
+</html>

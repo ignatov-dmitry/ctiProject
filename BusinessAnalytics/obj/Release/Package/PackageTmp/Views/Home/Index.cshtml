@@ -1,0 +1,320 @@
+﻿@using Logics
+@using db
+@{
+    TaskObj obj = new TaskObj();
+    ViewBag.Title = "Главная";
+}
+@if (User.IsInRole("Client"))
+{
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Подписанные заявки</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+
+                @*<div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Ссылка</th>
+                                <th>Продукт</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Claims)
+                            {
+
+                                <tr>
+                                    <td class="text-truncate">@item.Date</td>
+                                    <td class="text-truncate"><a href="@Url.Content("~/Claim")"><span class="tag tag-success">Ссылка</span></a></td>
+                                    <td class="text-truncate">@ProductView.Views(item.ProductId).Name</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>*@
+            </div>
+        </div>
+    </div>
+}
+@if (User.IsInRole("sklad"))
+{
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">На складе</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+
+                @*<div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Продукт</th>
+                                <th>Количество</th>
+                                <th>Цена</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Sklad)
+                            {
+
+                                <tr>
+                                    <td class="text-truncate">@item.Name</td>
+                                    <td class="text-truncate">@item.Count</td>
+                                    <td class="text-truncate">@item.Price</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>*@
+            </div>
+        </div>
+    </div>
+}
+@if (User.IsInRole("admin") || User.IsInRole("manager") || User.IsInRole("Client") || User.IsInRole("Auto"))
+{
+    <div class="content-body index">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-xs-12">
+                        <div class="card bg-cyan">
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="media">
+                                        <div class="media-body text-xs-left">
+                                            <h3 class="white">@ViewBag.newProducts</h3>
+                                            <span class="white">Новой продукции</span>
+                                        </div>
+                                        <div class="media-right media-middle">
+                                            <i class="icon-android-add-circle font-large-2 float-xs-right opgray"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-xs-12">
+                        <div class="card bg-teal">
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="media">
+                                        <div class="media-body text-xs-left">
+                                            <h3 class="white">@ViewBag.totalSum руб</h3>
+                                            <span class="white">Продажи за день</span>
+                                        </div>
+                                        <div class="media-right media-middle">
+                                            <i class="icon-android-checkbox-outline font-large-2 float-xs-right opgray"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-xs-12">
+                        <div class="card bg-blue">
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="media">
+                                        <div class="media-body text-xs-left">
+                                            <h3 class="white">50 680 руб</h3>
+                                            <span class="white">Недосдачи</span>
+                                        </div>
+                                        <div class="media-right media-middle">
+                                            <i class="icon-android-checkbox-outline icon-exclamation-triangle float-xs-right opgray"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="alert alert-info mb-2" style="color:#fff!important" role="alert">
+                            This alert needs your attention, but it's not super important.
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-1">
+                        <div class="text-xs-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-lg mb-1" style="width: 100%;">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span class="icon-arrow-left4"></span>
+                                            
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">Page 1 of 1</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span class="icon-arrow-right4"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="text-center grey">Please Note: Issues affecting servers you have accounts on will be highlighted with a gold background</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+
+                        <div class="card-body collapse in">
+                            <div class="card-block">
+                                <div class="list-group">
+
+                                    <p href="#" class="list-group-item" style="background-color: #eceeef; font-size: 22px;">
+                                        <i class="icon-funnel"></i> View
+                                    </p>
+                                    <a href="#" class="list-group-item teal"><span class="tag tag-default tag-pill bg-success float-xs-right">0</span>Функция</a>
+                                    <a href="#" class="list-group-item teal"><span class="tag tag-default tag-pill bg-success float-xs-right">0</span>Функция</a>
+                                    <a href="#" class="list-group-item teal"><span class="tag tag-default tag-pill bg-success float-xs-right">0</span>Функция</a>
+                                    <a href="#" class="list-group-item teal"><span class="icon-social-rss" style="margin-right: 5px;"></span>Функция</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+
+                        <div class="card-body collapse in">
+                            <div class="card-block">
+                                <div class="list-group">
+
+                                    <p href="#" class="list-group-item" style="background-color: #eceeef; font-size: 22px;">
+                                        <i class="icon-help-buoy"></i> Support
+                                    </p>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-ribbon" style="margin-right: 5px;"></span>Функция</a>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-server2" style="margin-right: 5px;"></span>Функция</a>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-download5" style="margin-right: 5px;"></span>Функция</a>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-user4" style="margin-right: 5px;"></span>Функция</a>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-cog2" style="margin-right: 5px;"></span>Функция</a>
+                                    <a href="#" class="list-group-item list-group-item-action teal"><span class="icon-shopping-cart" style="margin-right: 5px;"></span>Функция</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-xl-4 col-lg-6 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="p-2 text-xs-center bg-deep-orange bg-darken-2 media-left media-middle">
+                            <i class="icon-user1 font-large-2 white"></i>
+                        </div>
+                        <div class="p-2 bg-deep-orange white media-body">
+                            <h5>Новых клиентов</h5>
+                            <h5 class="text-bold-400">@ViewBag.newUsers</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+            @*<div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Активность</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+
+                                    <th>Сообщение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in StaticUserObj.ListViewObj())
+                                {
+                                    <tr>
+                                        <td class="text-truncate">@item.DateOfCompletion.Day-@item.DateOfCompletion.Month-@item.DateOfCompletion.Year</td>
+                                        <td class="text-truncate">
+                                            <span class="avatar avatar-xs">
+                                                @if (NotificationObj.ViewImg(obj.ViewUserName(item.UserId).UserName) != null)
+                                                {
+                                                    @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(NotificationObj.ViewImg(obj.ViewUserName(item.UserId).UserName)) + "\" />")
+                                                }
+                                                else
+                                                {
+                                                    <img src="@Url.Content("~/Content/assets/images/portrait/small/avatar-s-1.png")" alt="avatar">
+                                                }
+
+
+
+
+                                            </span> <span>@obj.ViewUserName(item.UserId).UserName</span>
+                                        </td>
+
+                                        <td class="valign-middle">
+                                            @item.Message
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        </div>
+        <div class="row match-height">
+            <h3 style="text-align:center;">Новости и события</h3>
+            @foreach (var a in ViewBag.events)
+            {
+                <div class="col-xl-4 col-md-6 col-sm-12">
+                    <div class="card event">
+                        <div class="card-body">
+                            <div class="card-block">
+                                <h4 class="card-title">@a.Name</h4>
+                                <p class="card-text">@a.Message</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+}

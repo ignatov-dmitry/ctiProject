@@ -1,0 +1,133 @@
+﻿@using Logics
+@{ 
+    TaskObj obj = new TaskObj();
+    ViewBag.Title = "Главная";
+}
+@if (User.IsInRole("admin") || User.IsInRole("manager")) {
+<div class="content-body">
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="p-2 text-xs-center bg-cyan bg-darken-2 media-left media-middle">
+                            <i class="icon-camera7 font-large-2 white"></i>
+                        </div>
+                        <div class="p-2 bg-cyan white media-body">
+                            <h5>Новой продукции</h5>
+                            <h5 class="text-bold-400">@ViewBag.newProducts</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="p-2 text-xs-center bg-deep-orange bg-darken-2 media-left media-middle">
+                            <i class="icon-user1 font-large-2 white"></i>
+                        </div>
+                        <div class="p-2 bg-deep-orange white media-body">
+                            <h5>Новых клиентов</h5>
+                            <h5 class="text-bold-400">@ViewBag.newUsers</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="p-2 text-xs-center bg-teal bg-darken-2 media-left media-middle">
+                            <i class="icon-cart font-large-2 white"></i>
+                        </div>
+                        <div class="p-2 bg-teal white media-body">
+                            <h5>Продажи за день</h5>
+                            <h5 class="text-bold-400">@ViewBag.totalSum руб</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Активность</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>Ссылка</th>
+                                    <th>Сообщение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in StaticUserObj.ListViewObj())
+                                {
+                                    <tr>
+                                        <td class="text-truncate">@item.DateOfCompletion.Day-@item.DateOfCompletion.Month-@item.DateOfCompletion.Year</td>
+                                        <td class="text-truncate">
+                                            <span class="avatar avatar-xs">
+                                                @if (NotificationObj.ViewImg(obj.ViewUserName(item.UserId).UserName) != null)
+                                                {
+                                                @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(NotificationObj.ViewImg(obj.ViewUserName(item.UserId).UserName)) + "\" />")
+                                                }
+                                                else
+                                                {
+                                                <img src="@Url.Content("~/Content/assets/images/portrait/small/avatar-s-1.png")" alt="avatar">
+                                                }
+                                            
+                                                
+                                                
+                                                
+                                                </span> <span>@obj.ViewUserName(item.UserId).UserName</span>
+                                        </td>
+                                        <td class="text-truncate"><a href="@Url.Content(item.URL)"><span class="tag tag-success">Ссылка</span></a></td>
+                                        <td class="valign-middle">
+                                            @item.Message
+                                        </td>
+                                    </tr>
+                                }
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row match-height">
+        <h3 style="text-align:center;">Новости и события</h3>
+        @foreach (var a in ViewBag.events)
+        {
+            <div class="col-xl-4 col-md-6 col-sm-12">
+                <div class="card event">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <h4 class="card-title">@a.Name</h4>
+                            <p class="card-text">@a.Message</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+       
+    </div>
+</div>
+}

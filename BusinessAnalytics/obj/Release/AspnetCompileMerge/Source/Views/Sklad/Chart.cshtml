@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Таблицы склада";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section js{
+    <script defer src="@Url.Content("~/Content/assets/vendors/js/charts/chart.min.js")" type="text/javascript"></script>
+    <script defer src="@Url.Content("~/Content/assets/js/scripts/charts/chartjs/bar/bar.js")" type="text/javascript"></script>
+    <script defer src="@Url.Content("~/Content/assets/js/scripts/charts/chartjs/bar/bar-stacked.js")" type="text/javascript"></script>
+    }
+
+<section id="chartjs-bar-charts">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">По категории</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                            <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                            <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <canvas id="bar-chart" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Chart -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">По дате</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                            <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                            <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <canvas id="bar-stacked" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

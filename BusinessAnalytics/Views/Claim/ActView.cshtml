@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Акты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<db.Order>
+@using Logics
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Список товаров</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Дата</th>
+                                    <th>Сумма</th>
+                                    <th class="text-center">Экспорт</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var i in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => i.Id)</th>
+                                        <td>@Html.DisplayFor(modelItem => ProductView.Views(i.ProductId).Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => i.Count)</td>
+                                        <td>@Html.DisplayFor(modelItem => i.Date)</td>
+                                       <td>@Html.DisplayFor(modelItem => i.Price)</td>
+                                        <td class="text-center">@Html.ActionLink("Экспорт в Word", "ExportInWord", new { id = i.Id }, new { @class = "edt" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <label class="modal-title text-text-bold-600" id="myModalLabel33">Приход готовой продукции</label>
+        </div>
+
+
+
+
+    </div>
+</div>
+<script>
+    $('#Id').append('<option value="" disabled style="dispaly:none;" selected>Наименование</option>');
+    $('body').on('change', '#Id', function (e) {
+        debugger;
+        var vvv = $(this).parent().index();
+        $('.ss:eq(' + $(this).parent().index() / 3 + ')').load('@Url.Action("ShowConSyr", "Sklad")/' + $(this).val());
+        $('.dd:eq(' + $(this).parent().index() / 3 + ')').load('@Url.Action("ShowConPack", "Sklad")/' + $(this).val());
+        console.log(vvv);
+    });
+
+</script>

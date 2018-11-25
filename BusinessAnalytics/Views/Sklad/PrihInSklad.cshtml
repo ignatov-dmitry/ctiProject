@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <label class="modal-title text-text-bold-600" id="myModalLabel33">Приход на склад</label>
+        </div>
+
+
+
+        @using (Ajax.BeginForm("PrihInSklad", "Sklad", new AjaxOptions { UpdateTargetId = "AddPack", OnComplete = "okSkladPack", OnSuccess = "okPackUpdate", OnFailure = "errorPack" }, new { @class = "form" }))
+        {
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="form-body">
+                        <input type="hidden" id="County" />
+                        <div class="form-group">
+                            @Html.Label("Id", "Наименование")
+                            @Html.DropDownList("Id", ViewBag.Pack as SelectList, new { @class = "form-control sel" })
+                            <div>Осталось на складе:<span class="s"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Count">Колическтво</label>
+                            <input type="number" id="Count" name="Count" class="form-control" placeholder="Количество" min="1" step="any" requared>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="icon-check2"></i> Сохранить
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $('#Id').append('<option value="" disabled style="display:none;" selected>Наименование</option>');
+    $('body').on('change', '#Id', function (e) {
+        debugger;
+        var vvv = $(this).parent().index();
+        $('.s:eq(' + $(this).parent().index() / 3 + ')').load('@Url.Action("ShowPackCount", "Sklad")/' + $(this).val());
+        
+          @*$('#Count').load('@Url.Action("ShowPackCount", "Sklad")/' + $(this).val(), function (e) {
+            $('#Count').attr('max',e);
+    });*@
+   
+        
+    });
+</script>

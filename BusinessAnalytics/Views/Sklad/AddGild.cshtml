@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <label class="modal-title text-text-bold-600" id="myModalLabel33">Добавления сырья</label>
+        </div>
+
+
+
+        @using (Ajax.BeginForm("AddGild", "Sklad", new AjaxOptions { OnSuccess = "okGild", UpdateTargetId = "AddGild", OnComplete = "okGildAdd", OnFailure = "errorGildAdd" }, new { @class = "form" }))
+        {
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.Label("Name", "Наименование")
+                                @Html.TextBox("Name", "", new { @class = "form-control", @placeholder = "Наименование", @required = "required" })
+                            </div>
+                            <div class="col-md-6 offset-md-3">
+                                <label for="Count">Количество</label>
+                                @Html.TextBox("Count", "", new { @class = "form-control", @placeholder = "Количество", @required = "required", @onkeyup = "this.value = this.value.replace (/[^\\d]/g, '').replace (/^0+/, '')" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="CountPacking">Количество тары</label>
+                                @Html.TextBox("CountPacking", "", new { @class = "form-control", @placeholder = "Количество", @required = "required", @onkeyup = "this.value = this.value.replace (/[^\\d]/g, '').replace (/^0+/, '')" })
+                            </div>
+                            <div class="col-md-6">
+                                <label for="GildArray.ProductId">Сырье</label>
+                                @Html.DropDownList("GildArray[0].ProductId", ViewBag.syr as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Count">Вес сырья</label>
+                                @Html.TextBox("GildArray[0].Count", "", new { @class = "form-control", @placeholder = "Вес", @required = "required", @onkeyup = "this.value = this.value.replace (/[^\\d]/g, '').replace (/^0+/, '')" })
+                            </div>
+                            <div class="add"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 offset-md-3" style="margin-top:10px;text-align: center;">
+                                <a href="#" class="addSyr btn btn-success">Добавить сырье</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="icon-check2"></i> Сохранить
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<script>
+     $(function () {
+        var i = 1;
+         $('.addSyr').on('click', function (e) {
+             e.preventDefault();
+            $('.add').append(`
+
+<div class="col-md-6">
+                                <label for="GildArray.ProductId">Сырье</label>
+                                @Html.DropDownList("GildArray[`+i+`].ProductId", ViewBag.syr as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Count">Вес сырья</label>
+                                @Html.TextBox("GildArray[`+i+`].Count", "", new { @class = "form-control", @placeholder = "Вес", @required = "required" })
+                            </div>
+                                        <hr class="line" />`);
+            i++;
+        });
+
+
+    })
+</script>

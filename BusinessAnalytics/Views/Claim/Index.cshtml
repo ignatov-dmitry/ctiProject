@@ -1,0 +1,134 @@
+﻿
+@model List<db.Claim>
+@using Logics
+@using db;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Заявки на заказ товара";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    TaskObj obj = new TaskObj();
+}
+<style>
+    .progress {
+        margin-bottom: 1rem;
+    }
+</style>
+<div class="row match-height">
+    <div style="text-align:center;">
+
+        <a href="@Url.Content("~/Claim/NewClaim")" class="btn btn-outline-success btn-lg">
+            Новая заявка
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Список заявок</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive" id="updating">
+                        @foreach (var i in Model)
+                        {
+                            decimal sumv = 0;
+                            var ct = 0;
+                            foreach (var item in i.ClaimArray)
+                            {
+
+                                sumv += item.FinishedProducts.PriceIn;
+                            }
+                            <div id="accordionWrapa1" role="tablist" aria-multiselectable="true">
+                                <div class="card">
+                                    <div id="heading_@i.Id" class="card-header">
+                                        <a data-toggle="collapse" data-parent="#accordionWrapa_@i.Id" href="#accordion_@i.Id" aria-expanded="false" aria-controls="accordion_@i.Id" class="link-claim card-title lead collapsed" style="font-size: 14px;">
+                                            Заявка # @i.Id &nbsp;
+                                        </a>
+                                        @if (i.IdManager != null)
+                                        {
+                                            <p>Менеджер: &nbsp;@obj.ViewUserName(i.IdManager.Value).FIO</p>
+                                        }
+                                        <p>Дата начало выполнения заявки: &nbsp;@Html.DisplayFor(modelItem => i.DateStart)</p>
+                                        <p>Общая сумма: &nbsp;@Html.DisplayFor(modelItem => sumv)</p>
+                                        @if (i.PrinClient != null)
+                                        {
+                                            <p>Заявка выполнена</p>
+                                            <progress class="progress" value="100" max="100"></progress>
+                                        }
+                                        else if (i.OtprAuto != null)
+                                        {
+                                            <p>Заявка доставляется</p>
+                                            <progress class="progress" value="70" max="100"></progress>
+                                            <a class="btn btn-cyan" href="@Url.Content("~/Claim/PrinClient/"+i.Id)">Товар пришёл</a>
+                                        }
+                                        else if (i.PrinManager != null)
+                                        {
+                                            <p>Заявка одобрена</p>
+                                            <progress class="progress" value="50" max="100"></progress>
+                                        }
+                                        else if (i.DateStart != null)
+                                        {
+                                            <p>Заявка отправлена на рассмотрение</p>
+                                            <progress class="progress" value="20" max="100"></progress>
+                                        }
+                                    </div>
+                                    <div id="accordion_@i.Id" role="tabpanel" aria-labelledby="heading_@i.Id" class="card-collapse collapse" aria-expanded="false">
+                                        <div class="card-body">
+                                            <div class="card-block">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Товар</th>
+                                                            <th>Количество</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in i.ClaimArray)
+                                                        {
+                                                            var counter = ++ct;
+                                                            <tr>
+                                                                <td>@counter</td>
+                                                                <td>@item.FinishedProducts.Name</td>
+                                                                <td>@item.Count</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+</div>
+<script>
+    $('.sel').val('-1');
+    var arr = [];
+    $("#name")
+        .keyup(function () {
+            $.getJSON(location.href + "/AutocompleteSearch", function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    arr.push(data[i].Price);
+                }
+                console.log(arr);
+            });
+        }).keyup();
+
+    $('body').on('change', '.sel', function (e) {
+        debugger;
+        var vvv = $(this).parent().index();
+        $('.s:eq('+$(this).parent().index()/3+')').load('@Url.Action("showsing", "Claim")/' + $(this).val());
+    });
+
+</script>

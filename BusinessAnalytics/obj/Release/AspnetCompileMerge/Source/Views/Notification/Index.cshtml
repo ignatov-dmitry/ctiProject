@@ -1,0 +1,41 @@
+﻿@using db
+@model IEnumerable<Notification>
+@{
+    ViewBag.Title = "Уведомления";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Уведомления</th>
+                <th class="text-center">Удаления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+                        {
+                            
+                            if (item.Status)
+                            {
+                    <tr>
+                        <th scope="row">@item.id</th>
+                        <td>@item.Message</td>
+                        
+                    </tr>
+                }
+                else
+                {
+                    <tr class="table-info">
+                        <th scope="row">@item.id</th>
+                        <td>@item.Message</td>
+                        <td class="text-center">@Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "edt icon-trash3", data_toggle = "modal", data_target = "#inlineForm" })</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

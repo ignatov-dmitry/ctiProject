@@ -1,0 +1,37 @@
+﻿
+@using BusinessAnalytics.Models
+@using db
+@using Logics
+@{
+
+    TaskObj obj = new TaskObj();
+}
+@{
+    if (MiniChat.PersonalManager().Count() != 0)
+    {
+
+        <h5 class="success">Менеджер</h5>
+        <ul class="list-group">
+            @foreach (var c in MiniChat.PersonalManager())
+            {
+
+
+                <li class="list-group-item">
+                    <a href="/chat/PrivateChat/@c.User?enter=true&logOn=true">@obj.ViewUserName(Guid.Parse(c.User.ToString())).UserName</a>
+                    @{
+                        if (c.Count != 0)
+                        {
+                            <span class="tag tag tag-primary tag-pill float-xs-right mr-2">@c.Count</span>
+                        }
+                        else
+                        {
+                            <span class="tag tag tag-primary tag-pill float-xs-right mr-2"></span>
+                        }
+
+                    }
+                </li>
+                        }
+        </ul>
+                        }
+
+}

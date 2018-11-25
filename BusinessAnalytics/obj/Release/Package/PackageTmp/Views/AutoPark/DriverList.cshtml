@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    tr {
+        cursor: pointer;
+    }
+</style>
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="col-xl-12 col-lg-12 text-center center" style="margin-top: 15px;">
+            <a href="@Url.Content("~/AutoPark/CreateDriverNew")" class="AddNew btn btn-outline-success text-center" data-target="#ss" data-toggle="modal">Добавить</a>
+        </div>
+        <div class="card-header">
+            <h4 class="card-title">@ViewBag.Title</h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                    <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Телефон</th>
+                            <th>Номер прав</th>
+                            <th>Закрепленная машина</th>
+                        </tr>
+                    </thead>
+                    <tbody id="AutoListTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-sm-center" id="ss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+    </div>
+    <a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+    <div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <label class="dts modal-title text-text-bold-600" id="myModalLabel33">Успешно добавлено на приход в цех</label>
+                </div>
+                <div class="modal-body">
+                    <h2 class="success" style="display:none;">Позиция успешно добавлена</h2>
+                    <h2 class="error" style="display:none;">Ошибка при добавлении</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Календарь заданий";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section js{
+<script  src="@Url.Content("~/Content/jquery.eventCalendar.js")"></script>
+<script  src="@Url.Content("~/Content/moment.js")"></script>
+<script >
+    
+    
+   
+
+
+        $('#eventCalendar').eventCalendar({
+            jsonData: json,
+            //eventsjson: location.protocol + '//' + location.host + '/Task/ShowCalendar',
+            jsonDateFormat: 'human',
+            startWeekOnMonday: false,
+            openEventInNewWindow: true,
+            dateFormat: 'dddd DD-MM-YYYY',
+            showDescription: false,
+            locales: {
+                locale: "ru",
+                txt_noEvents: "Нет запланированных задач",
+                txt_SpecificEvents_prev: "",
+                txt_SpecificEvents_after: "задачи:",
+                txt_NextEvents: "Следующие задачи:",
+                txt_GoToEventUrl: "Смотреть",
+                moment: {
+                    "months": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                        "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                    "monthsShort": ["Янв", "Фев", "Мар", "Апр", "Май", "Июн",
+                        "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+                    "weekdays": ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг",
+                        "Пятница", "Суббота"],
+                    "weekdaysShort": ["Вс", "Пн", "Вт", "Ср", "Чт",
+                        "Пт", "Сб"],
+                    "weekdaysMin": ["Вс", "Пн", "Вт", "Ср", "Чт",
+                        "Пт", "Сб"]
+                }
+            }
+        });
+    
+    console.log("2");
+</script>
+    }
+<link rel="stylesheet" href="@Url.Content("~/Content/eventCalendar.css")"/>
+<link rel="stylesheet" href="@Url.Content("~/Content/eventCalendar_theme_responsive.css")"/>
+
+
+<div class="row">
+    <div id="eventCalendar" style=" margin: 50px auto;"></div>
+</div>

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Заявки от клиентов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Список заявок</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" aria-controls="active" aria-expanded="true">Неподписанные</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="link-tab" data-toggle="tab" href="#link" aria-controls="link" aria-expanded="false">Подписанные</a>
+                </li>
+            </ul>
+            <div class="tab-content px-1 pt-1">
+                @{Html.RenderAction("ClaimUserSignFalse");}
+                @{Html.RenderAction("ClaimUserSignTrue");}
+                
+            </div>
+           
+        </div>
+    </div>
+</div>

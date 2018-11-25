@@ -1,0 +1,112 @@
+﻿@model IEnumerable<db.Claim>
+
+@{
+    ViewBag.Title = "Заявки на упаковку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Logics
+@using Microsoft.AspNet.Identity;
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Список товаров</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        @foreach (var i in Model)
+                        {
+                            if (i.SkladPd!= null)
+                            { }
+                            else
+                            {
+                            double sumv = 0;
+                            var ct = 0;
+                            foreach (var item in i.Claims)
+                            {
+
+                                sumv += item.Sum;
+                            }
+                            <div id="accordionWrapa1" role="tablist" aria-multiselectable="true">
+                                <div class="card">
+                                    <div id="heading_@i.Id" class="card-header">
+                                        <a data-toggle="collapse" data-parent="#accordionWrapa_@i.Id" href="#accordion_@i.Id" aria-expanded="false" aria-controls="accordion_@i.Id" class="link-claim card-title lead collapsed" style="font-size: 14px;">
+                                            Заявка # @i.Id &nbsp;
+                                        </a>
+                                        @if (i.SkladPr != null)
+                                        {
+                                            <p>Товар упаковывается на складе</p>
+                                            <a href="@Url.Content("~/Claim/SkladPd/"+i.Id)" class="btn btn-primary btn-min-width mr-1 mb-1">Принять</a>
+                                        }
+                                        else if (i.ManagerPr != null)
+                                        {
+                                            <p>Принять на упаковку</p>
+                                            <a href="@Url.Content("~/Claim/SkladPr/"+i.Id)" class="btn btn-primary btn-min-width mr-1 mb-1">Принять</a>
+                                        }
+                                       
+
+
+
+                                        <p>Дата начало выполнения заявки: &nbsp;@Html.DisplayFor(modelItem => i.DateStart)</p>
+                                        <p>Дата окончания выполнения заявки: &nbsp;@Html.DisplayFor(modelItem => i.DateEnd)</p>
+                                        <p>Общая сумма: &nbsp;@Html.DisplayFor(modelItem => sumv)</p>
+                                    </div>
+                                    <div id="accordion_@i.Id" role="tabpanel" aria-labelledby="heading_@i.Id" class="card-collapse collapse" aria-expanded="false">
+                                        <div class="card-body">
+                                            <div class="card-block">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Товар</th>
+                                                            <th>Количество</th>
+                                                            <th>Сумма</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in i.Claims)
+                                                        {
+
+
+                                                            var counter = ++ct;
+                                                            <tr>
+                                                                <td scope="row">@counter</td>
+                                                                <td>@ProductView.Views(int.Parse(item.IdProduct.ToString())).Name</td>
+                                                                <td>@item.Quantity</td>
+                                                                <td>@item.Sum</td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

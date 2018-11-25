@@ -1,0 +1,154 @@
+﻿@model List<BusinessAnalytics.Models.FinishVM>
+@{
+    ViewBag.Title = "Новая заявка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Logics.ClaimLogic cl = new Logics.ClaimLogic();
+    var ist = 0;
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Готовая продукция</h4>
+                </div>
+                <div class="card-body collapse in">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-md-10 center ad " id="st_@ist" style="">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="text-center">@item.NameVid</h4>
+                                            </div>
+                                            <div class="card-body collapse in">
+                                                <div class="col-md-3" style="margin-top:15px;">
+                                                    @if (item.Img!=null)
+                                                    {
+                                                        @Html.Raw("<img style=\"width:100%;float:left;min-height:100px;border-radius:15px; \" src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Img) + "\" />")
+                                                    }
+
+                                                </div>
+                                                <div class="col-md-9" style="margin-top:15px;">
+                                                    <div class="col-md-5">
+                                                        <select class="form-control vidFin" alt="@ist">
+                                                            @foreach (var item1 in item.finishVMs)
+                                                            {
+                                                                <option value="@item1.Id">@item1.NameVidFinish</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 ai">
+                                                        <select class="form-control st" id="tar_@ist"></select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" name="Col" id="col_@ist" placeholder="Количество" min="1" step="any" class="form-control" />
+
+                                                    </div>
+                                                    <div class="form-actions center">
+
+                                                        <div class="col-md-12">
+                                                            <div class="center col-xs-offset-6">
+                                                                <button type="button" id="" class="btn btn-success center check" style="margin:auto;display:block;margin-top:10px;margin-bottom:15px;" alt="@ist">
+                                                                    Добавить
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {
+                                        ++ist;
+                                    }
+                                }
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body collapse in">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Наименование</th>
+                                    <th>Кол-во(кг)</th>
+                                    <th>Цена</th>
+                                    <th class="center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="AddClaims"></tbody>
+                        </table>
+                        <p class="ddd" style="display:none;text-align: center;">Общая сумма : <span class="Sum"></span></p>
+                        @using (Ajax.BeginForm("NewClaim", "Claim", new AjaxOptions { OnSuccess = "okNewClaim", OnFailure = "errorNewClaim" }, new { @class = "form claim" }))
+                        {
+
+                            <input type="hidden" name="ObshSum" id="Summ" />
+                            <div id="AddNewClaim" style="width: 0;height: 0;"></div>
+                            <div class="form-actions center">
+                                <button type="submit" style="display:none;" id="Sub" class="btn btn-success">
+                                    <i class="icon-check2"></i> Подтвердить
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <a href="#" class="btn btn-primary" style="display:none;" id="osd" data-toggle="modal" data-target="#inlineForm"></a>
+                    <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <label class="modal-title text-text-bold-600" id="myModalLabel33">Товар добавлен</label>
+                                </div>
+                                <div class="modal-body">
+                                    <h2 class="success" style="display:none;"></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+                    <div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <label class="modal-title text-text-bold-600" id="myModalLabel33">Заявка оформлена</label>
+                                </div>
+                                <div class="modal-body">
+                                    <h2 class="success" style="display:none;">Заявка оформлена</h2>
+                                    <h2 class="error" style="display:none;">Ошибка при оформлении</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $('#ClaimArray').append('<option value="" disabled style="display:none;" selected>Наименование</option>');
+    $('.vidFin').append('<option value="" disabled style="display:none;" selected>Вид</option>');
+    $('.st').append('<option value="" disabled style="display:none;" selected>Тара</option>');
+
+</script>

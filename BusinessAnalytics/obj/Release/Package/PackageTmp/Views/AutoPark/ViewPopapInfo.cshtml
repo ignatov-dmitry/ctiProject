@@ -1,0 +1,23 @@
+﻿@model Int32
+@{ 
+    Layout = null;
+}
+
+<div class="modal-dialog" role="document" id="ModInfo">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 class="modal-title text-text-bold-600" id="myModalLabel33">Запрос</h2>
+            
+        </div>
+
+        <div class="modal-footer">
+            <div class="text-center">
+                <a href="@Url.Content("~/AutoPark/EditAutoNew/"+Model)" class="btn btn-green Del" id="del" data-target="#ss" data-toggle="modal">Изменить</a>
+                <a href="@Url.Content("~/AutoPark/DeleteAutoNew/"+ Model)" class="btn btn-red Red" data-target="#ss" data-toggle="modal">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>

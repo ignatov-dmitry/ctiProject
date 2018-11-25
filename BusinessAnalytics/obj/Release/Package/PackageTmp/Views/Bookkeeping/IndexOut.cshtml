@@ -1,0 +1,74 @@
+﻿@model IEnumerable<db.FinishedProducts>
+@{
+    ViewBag.Title = "Внешняя цена";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .fs {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">@ViewBag.Title</h4>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reloadFinishedProduct"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Фото</th>
+                                    <th>Наименование</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="Price">
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td><img src="@item.Image" alt="Фото" /></td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Count</td>
+                                    <td>@item.PriceOut</td>
+                                    <td class="text-center" id="price_@item.Id">
+                                        <a href="#" class="tt btn btn-warning">Изменить цену</a>
+                                        <form action="/Bookkeeping/OutCheck" class="fs" method="post">
+                                            <input type="hidden" name="Id" value="@item.Id">
+                                            <div class="col-md-3">
+                                                <input type="text" name="PriceOut" class="form-control" placeholder="Цена" requared>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="submit" id="sendPrice_@item.Id" name="name" value="Подтвердить" class="ai btn btn-success">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="#" id="clc_@item.Id" class="btn btn-warning"><i class="icon-android-cancel"></i></a>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

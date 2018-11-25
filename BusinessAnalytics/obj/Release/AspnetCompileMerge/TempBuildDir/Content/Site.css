@@ -1,0 +1,74 @@
+﻿
+body, p {
+    font-family: Verdana;
+    font-size: 14px;
+}
+
+
+
+#loginBlock {
+    position: absolute;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    height: 50px;
+    display: inline-block;
+    margin: 20px 10px 15px 40px;
+    padding: 35px 15px;
+}
+
+#Error {
+    width: 80%;
+    left: 10%;
+    height: 10%;
+    top: 91%;
+    color: Red;
+    font-weight: bold;
+    text-align: center;
+}
+
+#LastRefresh {
+    display: inline;
+    position: absolute;
+    font-size: xx-small;
+    text-align: right;
+    top: 7%;
+    left: 10%;
+    width: 80%;
+}
+
+#Username {
+    display: inline;
+    position: absolute;
+    font-size: medium;
+    font-weight: bold;
+    text-align: left;
+    top: 7%;
+    left: 10%;
+    width: 50%;
+}
+
+
+
+#Messages {
+    overflow: hidden;
+    background-color: #ddd;
+    max-height: 400px;
+    text-align: left;
+    font-size: x-small;
+    overflow-y: scroll;
+}
+
+
+.serverMes {
+    color: #808080;
+    font-weight: bold;
+}
+
+button {
+    font-weight: bold;
+}
+
+table, textarea {
+    width: 100%;
+}
+

@@ -1,0 +1,48 @@
+﻿@using db
+@model IEnumerable<Notification>
+@{
+    ViewBag.Title = "Уведомления";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Уведомления</th>
+                <th class="text-center">Удаления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                if (item.Status)
+                {
+
+                    <tr>
+
+                        <th scope="row">@item.id</th>
+                        <td><a href="@Url.Content("~/Notification/ViewId/"+item.id)" data-toggle="tooltip" data-placement="top" data-original-title="Просмотр уведомления" title="Просмотр уведомления">@item.Message</a></td>
+                        <td class="text-center">@Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "edt icon-trash3", data_toggle = "modal", data_target = "#inlineForm" })</td>
+
+                    </tr>
+
+                }
+                else
+                {
+                    <tr class="table-info">
+                        <th scope="row">@item.id</th>
+                        <td><a href="@Url.Content("~/Notification/ViewId/"+item.id)" data-toggle="tooltip" data-placement="top" data-original-title="Просмотр уведомления" title="Просмотр уведомления">@item.Message</a></td>
+                        <td class="text-center">@Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "edt icon-trash3", data_toggle = "modal", data_target = "#inlineForm" })</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@using BusinessAnalytics.Models
+@model db.ChatMessage
+@section js{
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/Scripts/chatPrivate.js")
+}
+
+<div id="Username">
+</div>
+<div id="container">
+    <div id="RefreshArea" class="row match-height">
+        @{
+            Html.RenderPartial("PrivateChatHistory", Model);
+        }
+    </div>
+
+    @Ajax.ActionLink("ActionLink", "PrivateChat", new { user = "", logOn = "", logOff = "", chatMessage = "" },
+new AjaxOptions { UpdateTargetId = "RefreshArea", OnSuccess = "ChatOnSuccess", OnFailure = "ChatOnFailure" },
+new { @id = "ActionLink", @style = "visibility:hidden;" })
+
+    <div id="inputForm" class="row">
+
+        <div class="offset-md-4 col-md-8" style="padding:0;">
+            <textarea class="form-control" id="txtMessage" rows="3"></textarea>
+        </div>
+        <div class="offset-md-9 col-md-3" style="margin-top:10px;">
+            <button id="btnMessage" class="btn btn-success" value="Отправить">Отправить</button>
+        </div>
+    </div>
+</div>
+<div id="Error">
+</div>
+@Ajax.ActionLink("Login", "PrivateChat", new { user = "" },
+new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
+new { @id = "LoginButton", @style = "visibility:hidden;" })
+

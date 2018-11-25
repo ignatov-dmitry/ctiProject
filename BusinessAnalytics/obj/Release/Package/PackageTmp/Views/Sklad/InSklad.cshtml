@@ -1,0 +1,101 @@
+﻿@model IEnumerable<db.Product>
+@{
+    /**/
+
+    ViewBag.Title = "Сырье";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .fs {
+        display: none;
+    }
+</style>
+<div class="row">
+    <h4 class="card-title">Приход на склад</h4>
+   
+    <div class="col-xs-12" style="margin: 15px 0;">
+        @using (Ajax.BeginForm("Prih", "Sklad", new AjaxOptions { OnSuccess = "okSyr", OnFailure = "errorAddCondiments" }, new { @class = "form",@id= "Products" }))
+        {
+        
+            <div class="col-md-4">
+                @Html.DropDownList("Id", ViewBag.Syr as SelectList, new { @class = "form-control", @placeholder = "Наименование" })
+            </div>
+            <div class="col-md-2">
+                <input type="number" id="Count" name="Count" class="form-control" placeholder="Количество" min="1" step="any" requared>
+            </div>
+            <div class="col-md-1">
+                <input type="text" value="кг." class="form-control" disabled />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" id="sendSklad" name="name" value="Подтвердить" class="ai btn btn-success">
+            </div>
+            <div class="col-md-2">
+                <a href="#" id="clearFormProduct" class="btn btn-warning"><i class="icon-android-cancel"></i></a>
+            </div>
+        }
+    </div>
+    <div class="col-xs-12">
+
+
+        <div class="card">
+            <div class="card-header">
+                <p class="card-title">Поступило на склад @DateTime.Now.ToShortDateString() г.</p>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body collapse in">
+
+                <div class="card-block card-dashboard">
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Наименование</th>
+                                    <th>Кол-во(кг)</th>
+                                    <th>Время</th>
+                                </tr>
+                            </thead>
+                            <tbody id="AddSklad"></tbody>
+                        </table>
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+                        </div>
+
+
+                        <a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+                        <div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <label class="modal-title text-text-bold-600" id="myModalLabel33">Успешно добавлена на приход в цех</label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2 class="success" style="display:none;">Позиция успешно добавлена</h2>
+                                        <h2 class="error" style="display:none;">Ошибка при добавлении</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#Id').append('<option value="" style="display:none" disabled selected>Наименование</option>');
+</script>

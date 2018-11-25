@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Приход в цех";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form-control option:hover {
+        background-color: #d4d4d4 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12" id="alert"></div>
+    <div class="col-xs-6" style="margin: 15px 0;">
+        <h4 class="card-title">Сырье</h4>
+        @using (Ajax.BeginForm("AddGild", "Sklad", new AjaxOptions { OnSuccess = "okGild", UpdateTargetId = "AddGild", OnComplete = "okGildAdd", OnFailure = "errorGildAdd" }, new { @class = "form" }))
+        {
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        @Html.DropDownList("ProductId", ViewBag.Syr as SelectList, new { @class = "form-control sel" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" id="Count" name="Count" class="form-control" placeholder="Количество" min="1" step="any" requared>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions center">
+
+                <input type="submit" id="sendGild" name="name" value="Подтвердить" class="ai btn btn-success">
+                <a href="#" id="clearFormGild" class="btn btn-warning"><i class="icon-android-cancel"></i></a>
+
+            </div>
+        }
+    </div>
+    <div class="col-xs-6" style="margin: 15px 0;">
+        <h4 class="card-title">Специи</h4>
+        @using (Ajax.BeginForm("AddSpecGild", "Sklad", new AjaxOptions { OnSuccess = "okGild", UpdateTargetId = "AddGild", OnComplete = "okGildAdd", OnFailure = "errorGildAdd" }, new { @class = "form", @id = "Spec" }))
+        {
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        @Html.DropDownList("CondimentsId", ViewBag.Con as SelectList, new { @class = "form-control cel" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" id="Count" name="CountCon" class="form-control" placeholder="Количество" min="1" step="any" requared>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions center">
+
+                <input type="submit" id="sendGild" name="name" value="Подтвердить" class="ai btn btn-success">
+
+
+                <a href="#" id="clearFormGildSpec" class="btn btn-warning"><i class="icon-android-cancel"></i></a>
+
+            </div>
+        }
+    </div>
+    <div class="col-xs-12">
+
+
+        <div class="card">
+            <div class="card-header">
+                <p class="card-title">Поступило в цех @DateTime.Now.ToShortDateString() г.</p>
+                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                        <li><a data-action="reloadGild"><i class="icon-reload"></i></a></li>
+                        <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block card-dashboard">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+
+                                    <th>Наименование</th>
+                                    <th>Кол-во(кг)</th>
+                                    <th>Время</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="AddSyr"></tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </tbody>
+
+                            <tbody id="AddScpec"></tbody>
+                        </table>
+
+                        <div class="modal fade text-xs-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+                        </div>
+
+
+                        <a href="#" class="btn btn-primary" style="display:none;" id="succesSend" data-toggle="modal" data-target="#okSend"></a>
+                        <div class="modal fade text-xs-left" id="okSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <label class="modal-title text-text-bold-600" id="myModalLabel33">Успешно добавлено на приход в цех</label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="success" style="display:none;"></h4>
+                                        <h2 class="error" style="display:none;">Ошибка при добавлении</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#ProductId').append('<option value="" style="display:none;color: silver;" disabled selected>Наименование</option>');
+    $('#CondimentsId').append('<option value="" style="display:none;color: silver;" disabled selected>Наименование</option>');
+
+</script>
+

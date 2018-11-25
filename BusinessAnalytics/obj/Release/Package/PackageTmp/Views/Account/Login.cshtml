@@ -1,0 +1,145 @@
+﻿@using BusinessAnalytics.Models
+@model LoginViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Выполнить вход";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>@ViewBag.Title</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="@Url.Content("~/Content/assets/images/ico/apple-icon-60.png")">
+    <link rel="apple-touch-icon" sizes="76x76" href="@Url.Content("~/Content/assets/images/ico/apple-icon-76.png")">
+    <link rel="apple-touch-icon" sizes="120x120" href="@Url.Content("~/Content/assets/images/ico/apple-icon-120.png")">
+    <link rel="apple-touch-icon" sizes="152x152" href="@Url.Content("~/Content/assets/images/ico/apple-icon-152.png")">
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/assets/images/ico/favicon.ico")">
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/Content/assets/images/ico/favicon-32.png")">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/bootstrap.css")">
+    <!-- font icons-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/fonts/icomoon.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/fonts/flag-icon-css/css/flag-icon.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/vendors/css/extensions/pace.css")">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN ROBUST CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/bootstrap-extended.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/app.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/colors.css")">
+    <!-- END ROBUST CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/core/menu/menu-types/vertical-menu.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/core/menu/menu-types/vertical-overlay-menu.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/css/pages/login-register.css")">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <script src="@Url.Content("~/Content/assets/js/core/libraries/jquery.min.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/style.css")">
+    <script src="@Url.Content("~/Content/js/scripts.js")"></script>
+    <!-- END Custom CSS-->
+    <base href="/">
+</head>
+<body data-open="click" data-menu="vertical-menu" data-col="1-column" class="vertical-layout vertical-menu 1-column  blank-page blank-page">
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+    <div class="app-content content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <p class="text-center">14.09.2018</p>
+            <div class="content-body">
+                <section class="flexbox-container">
+                    <div class="col-md-4 offset-md-4 col-xs-10 offset-xs-1  box-shadow-2 p-0">
+                        <div class="card border-grey border-lighten-3 m-0">
+                            <div class="card-header no-border">
+                                <div class="card-title text-xs-center">
+                                    <div class="p-1"><img src="@Url.Content("~/Content/logo.png")"></div>
+                                </div>
+                                <h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2"><span>АСУ ПК "Кремко"</span></h6>
+                            </div>
+
+                            <div class="card-body collapse in">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
+                                <div class="card-block">
+                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal form-simple", role = "form" }))
+                                    {
+
+                                        @Html.AntiForgeryToken()
+                                        <fieldset class="form-group position-relative has-icon-left mb-0">
+                                            @Html.TextBoxFor(m => m.Login, new { @class = "form-control form-control-lg input-lg", @id = "user-name", @placeholder = "Логин" })                                            <div class="form-control-position">
+                                                <i class="icon-head"></i>
+                                            </div>
+
+                                        </fieldset>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input type="password" class="form-control form-control-lg input-lg" name="Password" id="user-password" placeholder="Пароль" required>
+                                            <div class="form-control-position">
+                                                <i class="icon-key3"></i>
+                                            </div>
+
+                                        </fieldset>
+
+                                        <button type="submit" class="btn btn-success btn-block btn-lg "><i class="icon-unlock2"></i> Войти</button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <!--div class="">
+                                    <p class="text-xs-center m-0">
+                                        <a class="reg btn btn-outline-secondary btn-lg btn-block" data-target="#reg" data-toggle="modal" href="/Account/RegisterClientServices">Зарегестрироваться</a>
+                                    </p>
+                                </div-->
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-xs-left" id="reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+
+    </div>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/tether.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/core/libraries/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/perfect-scrollbar.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/unison.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/blockUI.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/jquery.matchHeight-min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/ui/screenfull.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/vendors/js/extensions/pace.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/assets/js/core/app-menu.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/core/app.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/vendors/js/ui/prism.min.js")"></script>
+    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+    <script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.signalR-2.2.2.js")"></script>
+    <script src="@Url.Content("~/signalr/hubs")"></script>
+    <script src="@Url.Content("~/Scripts/util.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/MiniChat.js")"></script>
+    <script>
+        $.ajaxSetup({ cache: false });
+        $(".reg").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#reg').html(data);
+            });
+        });
+    </script>
+
+</body>
+</html>
+<!--                             -->
